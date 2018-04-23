@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+<%= render 'layouts/sidebar' %>
+<div class="col-lg-8">
+<h1>Trainings</h1>
+
+<table class="table table-bordered white-bg">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Date of completion</th>
+      <th>Duration</th>
+      <th>Training expiry</th>
+      <th>Type</th>
+      <th>Training provider</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @trainings.each do |training| %>
+      <tr>
+        <td><%= training.name %></td>
+        <td><%= training.date_of_completion %></td>
+        <td><%= training.duration %></td>
+        <td><%= training.training_expiry %></td>
+        <td><%= training.training_type %></td>
+        <td><%= training.training_provider %></td>
+        <td><%= link_to 'Show', training, class:"btn btn-primary" %></td>
+        <td><%= link_to 'Edit', edit_training_path(training), class:"btn btn-primary" %></td>
+        <td><%= link_to 'Destroy', training, class:"btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Training', new_training_path, class:"btn btn-primary" %>
+</div>
+</div>

@@ -1,0 +1,10 @@
+<h1>Hi <%= @user.first_name.present? ? @user.first_name: "User" %></h1>
+<p>
+    You have been added to <strong>Task Management System</strong>
+    Please follow the link to login and start working: <%= new_user_session_url %>  <br>
+    Glad to have you on the team.<br>
+    You can sign in using following credentials <br>
+    <strong>Email</strong>: <%= @user.email %><br>
+    <strong>password</strong>: <%= @password %>
+
+</p>

@@ -1,0 +1,14 @@
+<div class="container">
+    <div class="row">
+	    <div class="loginmodal-container">
+			<div class="loginmodal-container-2">
+                <h1>Edit Training</h1>
+                
+                <%= render 'form', training: @training %>
+                
+                <center><%= link_to 'Show', @training, class:"btn btn-primary" %>
+                <%= link_to 'Back', trainings_path, class:"btn btn-primary" %></center>
+            </div>
+        </div>
+    </div>
+</div>    

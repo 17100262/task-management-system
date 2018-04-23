@@ -3,6 +3,9 @@ class HomeController < ApplicationController
     def home
     end
     
+    def dashboard
+    end
+    
     def admin
         # render :layout => false
         # byebug

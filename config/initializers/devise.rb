@@ -225,7 +225,7 @@ Devise.setup do |config|
   # Turn scoped views on. Before rendering "sessions/new", it will first check for
   # "users/sessions/new". It's turned off by default because it's slower if you
   # are using only default views.
-  # config.scoped_views = false
+  config.scoped_views = true
 
   # Configure the default scope given to Warden. By default it's the first
   # devise role declared in your routes (usually :user).
@@ -253,10 +253,10 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
-  config.omniauth :facebook, Rails.application.secrets['fb_access_id'], Rails.application.secrets['fb_secret_id']
-  config.omniauth :linkedin, Rails.application.secrets['linkedin_access_id'], Rails.application.secrets['linkedin_secret_id']
-  config.omniauth :twitter , Rails.application.secrets['twitter_access_id'], Rails.application.secrets['twitter_secret_id']
-  config.omniauth :google_oauth2, Rails.application.secrets['google_access_id'], Rails.application.secrets['google_secret_id']
+  # config.omniauth :facebook, Rails.application.secrets['fb_access_id'], Rails.application.secrets['fb_secret_id']
+  # config.omniauth :linkedin, Rails.application.secrets['linkedin_access_id'], Rails.application.secrets['linkedin_secret_id']
+  # config.omniauth :twitter , Rails.application.secrets['twitter_access_id'], Rails.application.secrets['twitter_secret_id']
+  # config.omniauth :google_oauth2, Rails.application.secrets['google_access_id'], Rails.application.secrets['google_secret_id']
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

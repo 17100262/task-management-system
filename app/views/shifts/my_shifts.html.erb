@@ -1,0 +1,43 @@
+<%= render 'layouts/sidebar' %>
+<div class="col-lg-8">
+<%#= month_calendar do |date| %>
+  <%#= date %>
+<%# end %>
+
+<h1>Shifts</h1>
+
+<table class="table table-bordered white-bg">
+  <thead>
+    <tr>
+      <th>Shift date</th>
+      <th>Shift time</th>
+      <th>Shift status</th>
+      <th>Skills required</th>
+      <th>External location</th>
+      <th>Accepted</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @shifts.each do |shift| %>
+      <tr>
+        <% if can? :read, shift.shift %>
+          <td><%= shift.shift.shift_date %></td>
+          <td><%= shift.shift.shift_time %></td>
+          <td><%= shift.shift.shift_status %></td>
+          <td><%= shift.shift.skills_required %></td>
+          <td><%= shift.shift.external_location.name %></td>
+          <td><%= shift.accepted ? "Yes":"No" %></td>
+          <td><%= link_to 'Accept Shift' , accept_shift_path(shift), class:"btn btn-primary",method: :put if not shift.accepted%></td>
+          <td><%#= link_to 'Show', shift, class:"btn btn-primary" %></td>
+          <td><%#= link_to 'Edit', edit_shift_path(shift), class:"btn btn-primary" %></td>
+          <td><%#= link_to 'Destroy', shift, method: :delete,, class:"btn btn-warning", data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+</div>
+</div>

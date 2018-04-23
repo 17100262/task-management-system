@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  date_of_completion: 2018-04-21
+  duration: 1
+  training_expiry: 2018-04-21
+  type: 1
+  training_provider: MyString
+
+two:
+  name: MyString
+  date_of_completion: 2018-04-21
+  duration: 1
+  training_expiry: 2018-04-21
+  type: 1
+  training_provider: MyString

@@ -1,0 +1,9 @@
+<%= link_to 'Manage Companies', companies_path if can? :manage, Company, class:"nav-link active", href:"#tabsNavigation1", data-toggle:"tab" %> </br>
+<%#= link_to 'Manage Users', users_path if can? :manage, User, class:"nav-link active", href:"#tabsNavigation1", data-toggle:"tab" %> </br>
+<%= link_to 'Manage Locations', locations_path if can? :index, Location, class:"nav-link active", href:"#tabsNavigation1", data-toggle:"tab" %> </br>
+<%= link_to 'Manage Locations', external_locations_path if can? :manage, ExternalLocation, class:"nav-link active", href:"#tabsNavigation1", data-toggle:"tab" %> </br>
+<%= link_to 'Manage Shifts', shifts_path if can? :manage, Shift, class:"nav-link active", href:"#tabsNavigation1", data-toggle:"tab" %> </br>
+
+<%= link_to 'My Shifts', my_shifts_path if can? :my_shifts, Shift, class:"nav-link active", href:"#tabsNavigation1", data-toggle:"tab" %> </br>
+<%= link_to 'My Company', company_path(current_user.company) if can? :show, current_user.company, class:"nav-link active", href:"#tabsNavigation1", data-toggle:"tab" %> </br>
+

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  shift_date: 2018-04-21
+  shift_time: 2018-04-21 14:54:42
+  shift_status: 1
+  skills_required: MyText
+  external_location: one
+
+two:
+  shift_date: 2018-04-21
+  shift_time: 2018-04-21 14:54:42
+  shift_status: 1
+  skills_required: MyText
+  external_location: two

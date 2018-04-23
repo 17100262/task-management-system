@@ -1,0 +1,30 @@
+
+<p id="notice"><%= notice %></p>
+<div class="row">
+	<div class="col-lg-4 offset-lg-4">
+		<div class="tabs tabs-vertical tabs-left tabs-navigation">
+			<ul class="nav nav-tabs col-sm-3">
+				<li class="nav-item">
+					<%= link_to 'Manage Companies', companies_path, class:"nav-link" if can? :manage, Company %>
+				</li>
+				<li class="nav-item">
+					<%#= link_to 'Manage Users', users_path, class:"nav-link", if can? :manage, User %>
+				</li>
+				<li class="nav-item">
+					<%= link_to 'Manage Locations', locations_path, class:"nav-link" if not current_user.super_admin? and can? :index, Location %>
+				</li>
+				<li class="nav-item">
+					<%= link_to 'Manage External Locations', external_locations_path, class:"nav-link" if not current_user.super_admin? and can? :manage, ExternalLocation %>
+				</li>
+				<li class="nav-item">
+					<%= link_to 'Manage Shifts', shifts_path, class:"nav-link" if not current_user.super_admin? and can? :manage, Shift %>
+				</li>
+				<li class="nav-item">
+					<%= link_to 'My Shifts', my_shifts_path, class:"nav-link active" if can? :my_shifts, Shift %>
+				</li>
+				<li class="nav-item">
+				    <%= link_to 'My Company', company_path(current_user.company), class:"nav-link" if (can? :show, current_user.company and not current_user.super_admin?) %>
+			    </li>
+			</ul>
+		</div>
+	</div>

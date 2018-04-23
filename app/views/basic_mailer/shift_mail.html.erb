@@ -1,0 +1,31 @@
+
+
+<% if @status=='create'%>
+    
+    <h1>Hi <%= @shift.user.first_name.present? ? @shift.user.first_name: "User" %></h1>
+    <p>
+        You have been assigned <%= link_to 'Shift' ,shift_url(@shift.shift) %> on <strong> Task Management System</strong> by manager <strong> <%= @shift.shift.manager.first_name %></strong>. 
+    </p>
+<% elsif (@status=='accepted') %>
+    
+    <h1>Hi <%= @shift.shift.manager.first_name.present? ? @shift.shift.manager.first_name: "User" %></h1>
+    <p>
+        The <%= link_to 'Shift' ,shift_url(@shift.shift) %> assigned by you to employee <strong><%=@shift.user.first_name %></strong>
+        has been accepted
+    </p>
+
+<% elsif (@status=='destroy') %>
+    
+    <h1>Hi <%= @shift.user.first_name.present? ? @shift.user.first_name: "User" %></h1>
+    <p>
+        The shift assigned to you by manager <strong><%= @shift.shift.manager.first_name  %></strong> has been cancelled
+    </p>
+<% elsif (@status=='accepted') %>
+    
+    <h1>Hi <%= @shift.user.first_name.present? ? @shift.user.first_name: "User" %></h1>
+    
+    <% elsif (@status=='update') %>
+        <p>
+        There is update in <%= link_to 'Shift' ,shift_url(@shift.shift) %> assigned to you by manager <strong> <%= @shift.shift.manager.first_name %></strong> on <strong> Task Management System</strong>  
+    </p>
+<% end %>

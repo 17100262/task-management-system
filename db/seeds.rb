@@ -5,3 +5,9 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+10.times do
+    Company.create!(name: Faker::Company.name)
+end
+
+# User.create!(email:"super_admin@test.com",password: "admin123",role: "super_admin")
+User.create!(email:"admin@test.com",password: "admin123",role: "admin", company_id: Company.all.pluck(:id).sample)

@@ -1,0 +1,26 @@
+<p id="notice"><%= notice %></p>
+<div class="container">
+    <div class="row">
+        <div class="loginmodal-container">
+            <div class="loginmodal-container-2  pt-3">
+            <p>
+              <strong>Name:</strong>
+              <%= @external_location.name %>
+            </p>
+            
+            <p>
+              <strong>Address:</strong>
+              <%= @external_location.address %>
+            </p>
+            
+            <p>
+              <strong>Description:</strong>
+              <%= @external_location.description %>
+            </p>
+            
+            <center><%= link_to 'Edit', edit_external_location_path(@external_location), class:"btn btn-primary" %> 
+            <%= link_to 'Back', external_locations_path, class:"btn btn-primary" %></center>
+          </div>
+      </div>
+    </div>
+</div>     

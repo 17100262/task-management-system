@@ -12,8 +12,25 @@
  *
  *= require_tree .
  *= require_self
+ *= require simple_calendar
  */
- 
- body {
-     margin-top: 69px;
+ input[type="checkbox"], input[type="radio"]{
+     margin:0 8px;
  }
+ input[type="checkbox"] > label, input[type="radio"] > label{
+     vertical-align: middle;
+ }
+.white-bg{
+ background: #fff !important;
+}
+.shift_date select{
+ width:32% !important;
+ display: inline-block !important;
+}
+.label_shift_date, .label_shift_time{
+ width: 100% !important;
+}
+.shift_time select{
+ width:48% !important;
+ display: inline-block !important;
+}

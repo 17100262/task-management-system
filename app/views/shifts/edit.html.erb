@@ -1,0 +1,14 @@
+<div class="container">
+    <div class="row">
+        <div class="loginmodal-container">
+            <div class="loginmodal-container-2">
+                <h1>Edit Shift</h1>
+                
+                <%= render 'form', shift: @shift %>
+                
+                <center><%= link_to 'Show', @shift, class:"btn btn-primary" %>
+                <%= link_to 'Back', shifts_path, class:"btn btn-primary" %></center>
+            </div>
+        </div>
+    </div>
+</div>    

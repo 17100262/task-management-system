@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+<%= render 'layouts/sidebar' %>
+<div class="col-lg-8">
+<h1>Shifts</h1>
+
+<table class="table table-bordered white-bg">
+  <thead>
+    <tr>
+      <th>Shift date</th>
+      <th>Shift time</th>
+      <th>Shift status</th>
+      <th>Skills required</th>
+      <th>External location</th>
+      <th colspan="3">Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @shifts.each do |shift| %>
+      <tr>
+        <% if can? :manage, shift %>
+          <td><%= shift.shift_date %></td>
+          <td><%= shift.shift_time %></td>
+          <td><%= shift.shift_status %></td>
+          <td><%= shift.skills_required %></td>
+          <td><%= shift.external_location.name %></td>
+          <td><%= link_to 'Show', shift, class:"btn btn-primary" %></td>
+          <td><%= link_to 'Edit', edit_shift_path(shift), class:"btn btn-primary" %></td>
+          <td><%= link_to 'Destroy', shift, class:"btn btn-warning", method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Shift', new_shift_path, class:"btn btn-primary" %>
+</div>
+</div>

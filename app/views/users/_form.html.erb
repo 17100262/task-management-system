@@ -1,0 +1,193 @@
+      <%= form_for @user do |f| %>
+       <div class="row">
+          
+          <div class="col-md-6">
+              <div class="form-group">
+                  <div class="row">
+                      <div class="col-md-3">
+                          <%= f.label :username %>
+                      </div>
+                      <div class="col-md-9">
+                           <%= f.text_field :username, :class => 'form-control form-control-md' %>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-6">
+              <div class="form-group">
+                  <div class="row">
+                      <div class="col-md-3">
+                         <%= f.label :email %>
+                      </div>
+                      <div class="col-md-9">
+                          <%= f.text_field :email, :class => 'form-control form-control-md' %>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="row">
+          
+          <div class="col-md-6">
+              <div class="form-group">
+                  <div class="row">
+                      <div class="col-md-3">
+                          <%= f.label :password %>
+                      </div>
+                      <div class="col-md-9">
+                           <%= f.text_field :password, :class => 'form-control form-control-md', type:(params[:action]=="new" ? "text":"password") %>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-6">
+              <div class="form-group">
+                  <div class="row">
+                      <div class="col-md-3">
+                          <%= f.label :password_confirmation %>
+                      </div>
+                      <div class="col-md-9">
+                          <%= f.text_field :password_confirmation, :class => 'form-control form-control-md', type:(params[:action]=="new" ? "text":"password")%>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="row">
+          
+          <div class="col-md-6">
+              <div class="form-group">
+                  <div class="row">
+                      <div class="col-md-3">
+                          <%= f.label :first_name %>
+                      </div>
+                      <div class="col-md-9">
+                           <%= f.text_field :first_name, :class => 'form-control form-control-md' %>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-6">
+              <div class="form-group">
+                  <div class="row">
+                      <div class="col-md-3">
+                          <%= f.label :last_name %>
+                      </div>
+                      <div class="col-md-9">
+                          <%= f.text_field :last_name, :class => 'form-control form-control-md' %>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+       <div class="row">
+          <div class="col-md-12">
+              <div class="form-group">
+                  <div class="row">
+                    <div class="col-md-5">
+                        <%= f.label :company %>
+                      </div>
+                      <div class="col-md-3">
+                          <label>Training</label>
+                      </div>
+                      <div class="col-md-4">
+                           <%= f.label :role %>
+                      </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-5">
+                          <% if current_user.super_admin? and params[:action]=='new' %>
+                                <input type="text" disabled class="form-control form-control-md" value="<%= Company.find(params[:company_id]).name %>">
+                              <%= f.hidden_field :company_id, value: params[:company_id], class: 'form-control form-control-md'  %>
+                          <% elsif (not current_user.super_admin?) %>
+                              <input type="text" disabled class="form-control form-control-md" value="<%= current_user.company.name %>">
+                              <%= f.hidden_field :company_id, value: current_user.company.id, class: 'form-control form-control-md'  %>
+                           <% elsif current_user.company_id.nil? %>
+                               <input type="text" disabled class="form-control form-control-md" value="No Company">
+                          <% end %>
+                      </div>
+                  
+                      <div class="col-md-3">
+                          <%#= f.fields_for :user_trainings do |fm| %>
+                            <%= f.collection_check_boxes(:training_ids, Training.all, :id, :name) %>
+                            
+                          <%# end %>
+                      </div>
+                      <div class="col-md-4">
+                          <% if params[:action]=="new" and not current_user.super_admin? %>
+                              <%= f.select :role, [["Employee","employee"],["Manager","manager"]] %>
+                          <% elsif (params[:action]=="new" and current_user.super_admin?) %>
+                              <%= f.hidden_field :role, value: "admin" %>
+                              <input type="text" disabled class="form-control form-control-md" value="Admin">
+                          <% else %>
+                              <input type="text" disabled class="form-control form-control-md" value="<%= @user.role.humanize %>">
+                          <% end %>
+                          
+                          
+                          
+                      </div>
+                      
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-md-4">
+              <%= f.label :employee_number %>
+          </div>
+          <div class="col-md-4">
+               <%= f.label :landline_number %>
+          </div>
+          <div class="col-md-4">
+               <%= f.label :mobile_number %>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-md-4">
+              <%= f.number_field :employee_number, :class => 'form-control form-control-md' %>
+          </div>
+          <div class="col-md-4">
+               <%= f.text_field :landline_number, :class => 'form-control form-control-md' %>
+          </div>
+          <div class="col-md-4">
+               <%= f.text_field :mobile_number, :class => 'form-control form-control-md' %>
+          </div>
+      </div>
+      <br/>
+      <div class="row">
+          
+          <div class="col-md-1">
+              <div class="form-group">
+                <%= f.label :address %>
+              </div>
+          </div>
+          <div class="col-md-11">
+              <div class="form-group">
+                <%= f.text_field :address, :class => 'form-control form-control-md' %> 
+              </div>
+          </div>
+      </div>
+      
+      
+      <div class="row">
+          <div class="col-md-3">
+          </div>
+          <div class="col-md-6">
+              <div class="form-group mb-0">
+                  <div class="row">
+                      <div class="col-md-12">
+                           <%= f.submit "Update", class: "login loginmodal-button loginmodal-submit" %>
+                      </div>
+                  </div>
+              </div>
+          </div>    
+          <div class="col-md-3">
+          </div>
+      </div>
+      
+	<% end %>
+	<div class="row">
+  <center class="w-100">
+    <a href="/" class="btn btn-link">Back to Home</a>
+  <center>  
+</div>

@@ -1,0 +1,48 @@
+<%= form_with(model: training, local: true) do |form| %>
+  <% if training.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(training.errors.count, "error") %> prohibited this training from being saved:</h2>
+
+      <ul>
+      <% training.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :training_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :date_of_completion %>
+    <%= form.date_select :date_of_completion, id: :training_date_of_completion %>
+  </div>
+
+  <div class="field">
+    <%= form.label :duration %>
+    <%= form.number_field :duration, id: :training_duration %>
+  </div>
+
+  <div class="field">
+    <%= form.label :training_expiry %>
+    <%= form.date_select :training_expiry, id: :training_training_expiry %>
+  </div>
+
+  <div class="field">
+    <%= form.label :type %>
+    <%#= form.number_field :type, id: :training_type %>
+    <%= form.select :training_type, Training.training_types.map { |key, value| [key.humanize, key] } %>
+  </div>
+
+  <div class="field">
+    <%= form.label :training_provider %>
+    <%= form.text_field :training_provider, id: :training_training_provider %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

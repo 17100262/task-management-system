@@ -1,0 +1,16 @@
+<p id="notice"><%= notice %></p>
+<div class="container">
+    <div class="row">
+        <div class="loginmodal-container">
+            <div class="loginmodal-container-2 pt-3">
+              <p>
+                <strong>Company:</strong>
+                <%= link_to @location.company.name,@location.company %>
+              </p>
+              
+              <center><%= link_to 'Edit', edit_location_path(@location), class:"btn btn-primary" %> 
+              <%= link_to 'Back', locations_path, class:"btn btn-primary" %></center>
+            </div>
+        </div>
+    </div>
+</div>    

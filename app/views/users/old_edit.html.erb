@@ -1,0 +1,116 @@
+<%= form_for @user do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this @user from being saved:</h2>
+
+      <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <div class="form-group row">
+      <%= f.label :email, :class => "col-2 col-form-label" %>
+        <div class="col-10">
+          <%= f.text_field :email, :class => 'form-control' %><br />
+        </div>
+    </div>
+    
+    <div class="form-group row">
+      <%= f.label :password, :class => "col-2 col-form-label" %>
+        <div class="col-10">
+          <%= f.text_field :password, :class => 'form-control' %><br />
+        </div>
+    </div>
+    
+    
+    <div class="form-group row">
+      <%= f.label :password_confirmation, :class => "col-2 col-form-label" %>
+        <div class="col-10">
+          <%= f.text_field :password_confirmation, :class => 'form-control' %><br />
+        </div>
+    </div>
+    
+    
+    <div class="form-group row">
+        <%= f.label :first_name, :class => "col-2 col-form-label" %> <br />
+        <div class="col-10">
+            <%= f.text_field :first_name, :class => 'form-control' %><br />
+        </div>
+    </div>
+    
+    
+    <div class="form-group row">
+        <%= f.label :last_name, :class => "col-2 col-form-label" %> <br />
+        <div class="col-10">
+            <%= f.text_field :last_name, :class => 'form-control' %><br />
+        </div>
+    </div>
+    
+    <fieldset disabled>
+        <div class="form-group row">
+          <%= f.label :company, :class => "col-2 col-form-label" %>
+            <div class="col-10">
+              <input type="text" class="form-control" placeholder="<%= current_user.company.name %>">
+            </div>
+        </div>
+        
+    </fieldset>
+    <%= f.hidden_field :company_id, value: current_user.company.id, class: 'form-control'  %>
+    
+    
+    <%#= f.fields_for :user_trainings do |fm| %>
+      <%= f.collection_check_boxes(:training_ids, Training.all, :id, :name) %>
+      
+    <%# end %>
+
+    
+    <div class="form-group row">
+      <%= f.label :role , :class => "col-2 col-form-label"%>
+      <div class="col-10">
+          <%= f.select :role, [["Employee","employee"],["Manager","manager"]] %>
+      </div>
+    </div>
+      <%= f.hidden_field :company_id, value: current_user.company.id, class: 'form-control'  %>
+    
+    <div class="form-group row">
+        <%= f.label :username, :class => "col-2 col-form-label" %> <br />
+        <div class="col-10">
+            <%= f.text_field :username, :class => 'form-control' %><br />
+        </div>
+    </div>
+    
+    <div class="form-group row">
+        <%= f.label :employee_number, :class => "col-2 col-form-label" %> <br />
+        <div class="col-10">
+            <%= f.number_field :employee_number, :class => 'form-control' %><br />
+        </div>
+    </div>
+    
+    <div class="form-group row">
+        <%= f.label :landline_number, :class => "col-2 col-form-label" %> <br />
+        <div class="col-10">
+            <%= f.text_field :landline_number, :class => 'form-control' %><br />
+        </div>
+    </div>
+    
+    <div class="form-group row">
+        <%= f.label :mobile_number, :class => "col-2 col-form-label" %> <br />
+        <div class="col-10">
+            <%= f.text_field :mobile_number, :class => 'form-control' %><br />
+        </div>
+    </div>
+    
+    <div class="form-group row">
+        <%= f.label :address, :class => "col-2 col-form-label" %> <br />
+        <div class="col-10">
+            <%= f.text_field :address, :class => 'form-control' %><br />
+        </div>
+    </div>
+    
+    
+    <!--t.string "address"-->
+    <%= f.submit "Update" %>
+<% end %>
