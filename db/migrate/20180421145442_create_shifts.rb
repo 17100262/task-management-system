@@ -6,7 +6,6 @@ class CreateShifts < ActiveRecord::Migration[5.1]
       t.integer :shift_status
       t.text :skills_required
       t.references :external_location, foreign_key: true
-      t.references :manager
 
       t.timestamps
     end
