@@ -58,13 +58,21 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = true
   
   
-  # ActionMailer::Base.delivery_method = :smtp
+  ActionMailer::Base.delivery_method = :smtp
+  # ActionMailer::Base.smtp_settings = {
+  #   :address => 'smtpout.secureserver.net',
+  #   :domain  => 'www.guidistan.com',
+  #   :port      => 80,
+  #   :user_name => ENV['mailer_username'],
+  #   :password => ENV['mailer_password'],
+  #   :authentication => :plain
+  #   }
+    
   ActionMailer::Base.smtp_settings = {
-    :address => 'smtpout.secureserver.net',
-    :domain  => 'www.guidistan.com',
-    :port      => 80,
-    :user_name => ENV['mailer_username'],
-    :password => ENV['mailer_password'],
+    :address => 'smtp.gmail.com',
+    :port      => 587,
+    :user_name => ENV['GMAIL_USERNAME'],
+    :password => ENV['GMAIL_PASSWORD'],
     :authentication => :plain
-    }  
+    }
 end

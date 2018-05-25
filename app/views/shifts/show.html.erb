@@ -1,20 +1,21 @@
-<div class="container">
+<div class="col-lg-9">
     <div class="row">
         <div class="loginmodal-container">
             <div class="loginmodal-container-2 pt-3">
             <p>
-              <strong>Shift date:</strong>
-              <%= @shift.shift_date %>
+              <strong>Start Time:</strong>
+              <%= @shift.start_time %>
+            </p>
+            <p>
+              <strong>End date:</strong>
+              <%= @shift.end_time %>
             </p>
             <p>
               <strong>Manager:</strong>
               <%= @shift.manager.first_name %>
             </p>
             
-            <p>
-              <strong>Shift time:</strong>
-              <%= @shift.shift_time.to_time %>
-            </p>
+            
             
             <p>
               <strong>Shift status:</strong>
@@ -35,9 +36,10 @@
               <strong>Assigned Employees:</strong>
               
               <ul>
-                <% @shift.users.each do |user| %>
+                <% @shift.shift_users.each do |shift_user| %>
                   <li>
-                    <%= user.first_name %>
+                    <%= shift_user.user.first_name %>
+                    (Accepted: <%= shift_user.accepted ? "Yes":"No" %>)
                   </li>
                 <% end %>
               </ul>
@@ -45,8 +47,12 @@
             </p>
             
             
-            <center><%= link_to 'Edit', edit_shift_path(@shift), class:"btn btn-primary" %>
-            <%= link_to 'Back', shifts_path, class:"btn btn-primary" %></center>
+            <center><%= link_to 'Edit', edit_shift_path(@shift), class:"btn btn-primary" if can? :update, @shift %>
+            <% shift_user =  ShiftUser.where(user_id: current_user.id, shift_id: @shift.id) %>
+            <% if shift_user.present? and not shift_user.accepted  %>
+              <%= link_to 'Accept Shift' , accept_shift_path(shift_user), class:"btn btn-primary",method: :put%>
+            <% end %>
+            <%#= link_to 'Back', shifts_path, class:"btn btn-primary" %></center>
              </div>
         </div>
     </div>

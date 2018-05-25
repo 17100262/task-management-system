@@ -1,5 +1,4 @@
 <p id="notice"><%= notice %></p>
-<%= render 'layouts/sidebar' %>
 <div class="col-lg-8">
 <h1>Trainings</h1>
 
@@ -19,15 +18,17 @@
   <tbody>
     <% @trainings.each do |training| %>
       <tr>
-        <td><%= training.name %></td>
-        <td><%= training.date_of_completion %></td>
-        <td><%= training.duration %></td>
-        <td><%= training.training_expiry %></td>
-        <td><%= training.training_type %></td>
-        <td><%= training.training_provider %></td>
-        <td><%= link_to 'Show', training, class:"btn btn-primary" %></td>
-        <td><%= link_to 'Edit', edit_training_path(training), class:"btn btn-primary" %></td>
-        <td><%= link_to 'Destroy', training, class:"btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if can? :read, training %>
+          <td><%= training.name %></td>
+          <td><%= training.date_of_completion %></td>
+          <td><%= training.duration %></td>
+          <td><%= training.training_expiry %></td>
+          <td><%= training.training_type %></td>
+          <td><%= training.training_provider %></td>
+          <td><%= link_to 'Show', training, class:"btn btn-primary" %></td>
+          <td><%= link_to 'Edit', edit_training_path(training), class:"btn btn-primary" %></td>
+          <td><%= link_to 'Destroy', training, class:"btn btn-warning", method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

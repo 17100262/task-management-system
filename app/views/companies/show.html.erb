@@ -1,12 +1,14 @@
-
-<p id="notice"><%= notice %></p>
-<%= render 'layouts/sidebar' %>
 <div class="col-lg-8">
-  <strong>Company Name:</strong>
-  <%= @company.name %>
+  <p>
+    <strong>Company Name:</strong>
+    <%= @company.name %>
+    <strong>Tier:</strong>
+    <%= @company.tier %>
+  </p>
 
 
-<p id="notice"><%= notice %></p>
+
+
 
 <h3>Company Locations</h3>
 
@@ -39,7 +41,7 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th colspan="3"></th>
+      <!--<th colspan="3"></th>-->
     </tr>
   </thead>
 
@@ -47,7 +49,7 @@
     <% @company.users.each do |employee| %>
       <tr>
         <td><%= employee.first_name.present? ? "#{employee.first_name}":"Not Provided" %></td>
-        <!--<td><%#= link_to 'Show', location, class:"btn btn-primary" %></td>-->
+        <td><%= link_to 'Schedule', user_schedule_path(employee),class:"btn btn-primary" if can? :schedule, employee %> </td>
         <td><%= link_to 'Edit', edit_user_path(employee), class:"btn btn-primary" %></td>
         <td><%= link_to 'Destroy', employee, method: :delete, class:"btn btn-warning", data: { confirm: 'Are you sure?'} %></td>
       </tr>

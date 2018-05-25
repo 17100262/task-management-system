@@ -22,7 +22,7 @@
 										      
 								        <% if user_signed_in? %>
 									         <li class="">
-									         	<a class="nav-link" href="<%= edit_user_path(current_user) %>">Profile</a>
+									         	<a class="nav-link" href="<%= user_path(current_user) %>">Profile</a>
 									         </li>
 									          
 									          <%# if current_user.admin? %>

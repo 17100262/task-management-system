@@ -1,30 +1,26 @@
 
-<p id="notice"><%= notice %></p>
-<div class="row">
-	<div class="col-lg-4 offset-lg-4">
-		<div class="tabs tabs-vertical tabs-left tabs-navigation">
-			<ul class="nav nav-tabs col-sm-3">
-				<li class="nav-item">
-					<%= link_to 'Manage Companies', companies_path, class:"nav-link" if can? :manage, Company %>
-				</li>
-				<li class="nav-item">
-					<%#= link_to 'Manage Users', users_path, class:"nav-link", if can? :manage, User %>
-				</li>
-				<li class="nav-item">
-					<%= link_to 'Manage Locations', locations_path, class:"nav-link" if not current_user.super_admin? and can? :index, Location %>
-				</li>
-				<li class="nav-item">
-					<%= link_to 'Manage External Locations', external_locations_path, class:"nav-link" if not current_user.super_admin? and can? :manage, ExternalLocation %>
-				</li>
-				<li class="nav-item">
-					<%= link_to 'Manage Shifts', shifts_path, class:"nav-link" if not current_user.super_admin? and can? :manage, Shift %>
-				</li>
-				<li class="nav-item">
-					<%= link_to 'My Shifts', my_shifts_path, class:"nav-link active" if can? :my_shifts, Shift %>
-				</li>
-				<li class="nav-item">
-				    <%= link_to 'My Company', company_path(current_user.company), class:"nav-link" if (can? :show, current_user.company and not current_user.super_admin?) %>
-			    </li>
+
+	<!--<div class="calendar"></div>-->
+	<div class="col-lg-8">
+		<% if current_user.super_admin? %>
+			Number of Companies: <%= Company.count %> <br>
+			Number of Shifts: <%= Shift.count %> <br>
+			<% total  = Shift.all.map(&:duration).sum %>
+			<% total_min = total / 1.minutes %>
+			Number of Hours: <%= "#{total_min.to_i / 60} hours and #{total_min.to_i % 60} minutes" %> <br>
+		<% elsif current_user.admin? or current_user.manager? %>
+			Total Shifts booked: <%= current_user.company.shifts.where(shift_status: 'approved').count %> <br>
+			<% total  = current_user.company.shifts.where(shift_status: 'approved').map(&:duration).sum %>
+			<% total_min = total / 1.minutes %>
+			Total Hours Booked: <%= "#{total_min.to_i / 60} hours and #{total_min.to_i % 60} minutes" %> <br>
+		<% elsif current_user.employee? %>
+			Company: <%= current_user.company.name %>
+			Trainings:
+			<ul>
+				<% current_user.trainings.each do |training| %>
+					<li><%= training.name %></li>
+				<% end %>
 			</ul>
-		</div>
+		<% end %>
 	</div>
+</div>

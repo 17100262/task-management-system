@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180422202234) do
+ActiveRecord::Schema.define(version: 20180522055900) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20180422202234) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "tier", default: 5
   end
 
   create_table "departments", force: :cascade do |t|
@@ -33,6 +34,8 @@ ActiveRecord::Schema.define(version: 20180422202234) do
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "company_id"
+    t.index ["company_id"], name: "index_external_locations_on_company_id"
   end
 
   create_table "locations", force: :cascade do |t|
@@ -56,8 +59,7 @@ ActiveRecord::Schema.define(version: 20180422202234) do
   end
 
   create_table "shifts", force: :cascade do |t|
-    t.date "shift_date"
-    t.time "shift_time"
+    t.datetime "start_time"
     t.integer "shift_status"
     t.text "skills_required"
     t.bigint "external_location_id"
@@ -65,8 +67,25 @@ ActiveRecord::Schema.define(version: 20180422202234) do
     t.datetime "updated_at", null: false
     t.integer "manager_id"
     t.bigint "company_id"
+    t.datetime "end_time"
     t.index ["company_id"], name: "index_shifts_on_company_id"
     t.index ["external_location_id"], name: "index_shifts_on_external_location_id"
+  end
+
+  create_table "skill_users", force: :cascade do |t|
+    t.bigint "skill_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["skill_id"], name: "index_skill_users_on_skill_id"
+    t.index ["user_id"], name: "index_skill_users_on_user_id"
+  end
+
+  create_table "skills", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "trainings", force: :cascade do |t|
@@ -78,6 +97,8 @@ ActiveRecord::Schema.define(version: 20180422202234) do
     t.string "training_provider"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "company_id"
+    t.index ["company_id"], name: "index_trainings_on_company_id"
   end
 
   create_table "trainings_users", id: false, force: :cascade do |t|
@@ -108,7 +129,7 @@ ActiveRecord::Schema.define(version: 20180422202234) do
     t.string "first_name"
     t.string "last_name"
     t.string "username"
-    t.integer "employee_number"
+    t.string "employee_number"
     t.string "landline_number"
     t.string "mobile_number"
     t.string "address"
@@ -116,17 +137,22 @@ ActiveRecord::Schema.define(version: 20180422202234) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "company_id"
+    t.boolean "password_changed", default: false
     t.index ["company_id"], name: "index_users_on_company_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "external_locations", "companies"
   add_foreign_key "locations", "companies"
   add_foreign_key "locations", "departments"
   add_foreign_key "shift_users", "shifts"
   add_foreign_key "shift_users", "users"
   add_foreign_key "shifts", "companies"
   add_foreign_key "shifts", "external_locations"
+  add_foreign_key "skill_users", "skills"
+  add_foreign_key "skill_users", "users"
+  add_foreign_key "trainings", "companies"
   add_foreign_key "user_locations", "locations"
   add_foreign_key "user_locations", "users"
   add_foreign_key "users", "companies"

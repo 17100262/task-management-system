@@ -26,6 +26,8 @@ class ShiftsController < ApplicationController
   # GET /shifts/new
   def new
     @shift = Shift.new
+    @shift.start_time = params[:start_time] if params[:start_time]
+    @shift.end_time = params[:end_time] if params[:end_time]
   end
 
   # GET /shifts/1/edit
@@ -82,6 +84,6 @@ class ShiftsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def shift_params
-      params.require(:shift).permit(:shift_date, :shift_time, :shift_status, :skills_required, :external_location_id,user_ids: [])
+      params.require(:shift).permit(:end_time,:start_time, :shift_status, :skills_required, :external_location_id,user_ids: [])
     end
 end

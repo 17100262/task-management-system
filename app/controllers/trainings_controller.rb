@@ -26,6 +26,7 @@ class TrainingsController < ApplicationController
   # POST /trainings.json
   def create
     @training = Training.new(training_params)
+    @training.company_id = current_user.company_id
 
     respond_to do |format|
       if @training.save

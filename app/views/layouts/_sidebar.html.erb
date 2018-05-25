@@ -18,7 +18,7 @@
 					<%= link_to 'Manage Shifts', shifts_path, class:"nav-link" if not current_user.super_admin? and can? :manage, Shift %>
 				</li>
 				<li class="nav-item">
-					<%= link_to 'My Shifts', my_shifts_path, class:"nav-link active" if can? :my_shifts, Shift %>
+					<%= link_to 'My Shifts', user_schedule_path(current_user), class:"nav-link active" if can? :my_shifts, Shift %>
 				</li>
 				<li class="nav-item">
 				    <%= link_to 'My Company', company_path(current_user.company), class:"nav-link" if (can? :show, current_user.company and not current_user.super_admin?) %>

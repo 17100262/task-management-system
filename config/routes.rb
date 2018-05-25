@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :skills
   resources :shifts
   get 'my_shifts',to: 'shifts#my_shifts',as: :my_shifts
   put 'shift_users/:id/accept_shift', to: 'shifts#accept_shift',as: :accept_shift
@@ -17,6 +18,7 @@ Rails.application.routes.draw do
   # , as: :admin
   # get 'users/profile/edit', to: 'users#edit_profile', as: :edit_profile
   resources :users
+  get 'users/:id/schedule', to: "users#schedule", as: :user_schedule
   # , path: '/users/profile'
 
 end

@@ -1,0 +1,44 @@
+
+
+<div id="remote_container"></div>
+
+<div class=" col-lg-9">
+    <h3 class="text-center"><%=@user.first_name %>'s Schedule</h3>
+    <div class="calendar"></div>
+    
+</div>
+<script>
+$('.calendar').fullCalendar({
+        defaultView: 'agendaWeek',
+        header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay'
+            },
+            <% if current_user.manager? %>
+                selectable: true,
+            <% end %>
+            selectHelper: true,
+            // editable: true,
+            eventLimit: true,
+            eventRender: function(event,element){
+                var description = event.description; 
+                var firstname = event.title;
+                element.find('.fc-title').append("<br/> <b>Manager</b>: " + event.manager); 
+                // element.qtip({
+                //   content: event.description
+                // });
+                
+                
+            },
+            select: function(start, end) {
+                //   alert('selected ' + moment(start).format("MM/DD/YYYY HH:mm") + ' - ' + moment(end).format("MM/DD/YYYY HH:mm"));
+                $.getScript("/shifts/new?start_time="+ moment(start).format('YYYY/MM/DD HH:mm') + "&end_time=" + moment(end).format('YYYY/MM/DD HH:mm')
+                
+                );
+        
+                // calendar.fullCalendar('unselect');
+            },
+        events: "<%= "/users/#{params[:id]}/schedule.json" %>"
+    });
+</script>

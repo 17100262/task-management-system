@@ -61,5 +61,8 @@ gem 'omniauth-google-oauth2'
 gem 'omniauth-twitter'
 gem 'faker'
 gem 'cancancan'
-gem "simple_calendar"
+gem "simple_calendar", "~> 2.0"
 gem 'figaro'
+gem 'twilio-ruby'
+gem 'fullcalendar-rails'
+gem 'momentjs-rails'

@@ -1,12 +1,10 @@
 <p id="notice"><%= notice %></p>
-<%= render 'layouts/sidebar' %>
 <div class="col-lg-8">
 <h1>Shifts</h1>
 
 <table class="table table-bordered white-bg">
   <thead>
     <tr>
-      <th>Shift date</th>
       <th>Shift time</th>
       <th>Shift status</th>
       <th>Skills required</th>
@@ -19,8 +17,7 @@
     <% @shifts.each do |shift| %>
       <tr>
         <% if can? :manage, shift %>
-          <td><%= shift.shift_date %></td>
-          <td><%= shift.shift_time %></td>
+          <td><%= shift.start_time %></td>
           <td><%= shift.shift_status %></td>
           <td><%= shift.skills_required %></td>
           <td><%= shift.external_location.name %></td>
@@ -35,6 +32,28 @@
 
 <br>
 
+<h1>Company Employees</h3>
+
+<table class="table table-bordered white-bg">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th colspan="1"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% current_user.company.users.each do |employee| %>
+      <tr>
+        <td><%= employee.first_name.present? ? "#{employee.first_name}":"Not Provided" %></td>
+        <td><%= link_to 'Check Schedule', user_schedule_path(employee),class:"btn btn-primary" if can? :schedule, employee %> </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
 <%= link_to 'New Shift', new_shift_path, class:"btn btn-primary" %>
 </div>
 </div>
+
+ 

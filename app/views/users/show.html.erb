@@ -1,0 +1,46 @@
+<div class="col-lg-9">
+   <!--<div class="row">-->
+      <!--<div class="loginmodal-container">-->
+         <!--<div class="loginmodal-container-2 pt-3">-->
+            <p>
+               <strong>Firstname:</strong>
+               <%= @user.first_name %>
+            </p>
+            <p>
+               <strong>Lastname:</strong>
+               <%= @user.last_name %>
+            </p>
+            <p>
+               <strong>Employee Number:</strong>
+               <%= @user.employee_number %>
+            </p>
+            <p>
+               <strong>Skills:</strong>
+            <ul>
+               <% @user.skills.each do |skill| %>
+               <li> <%= skill.name %></li>
+               <% end %>
+            </ul>
+            </p>
+            <p>
+               <strong>Trainings:</strong>
+            <ul>
+               <% @user.trainings.each do |training| %>
+               <li> <%= training.name %></li>
+               <% end %>
+            </ul>
+            </p>
+            <p>
+               <strong>Address:</strong>
+               <%= @user.address %>
+            </p>
+            <p>
+               <strong>Role:</strong>
+               <%= @user.role.humanize %>
+            </p>
+            <%= link_to 'Edit', edit_user_path(@user) %> |
+            <%= link_to 'Back', dashboard_path %>
+         <!--</div>-->
+      <!--</div>-->
+   <!--</div>-->
+</div>

@@ -1,5 +1,4 @@
 <p id="notice"><%= notice %></p>
-<%= render 'layouts/sidebar' %>
 <div class="col-lg-8">
 <h1>External Locations</h1>
 
@@ -15,14 +14,16 @@
 
   <tbody>
     <% @external_locations.each do |external_location| %>
-      <tr>
-        <td><%= external_location.name %></td>
-        <td><%= external_location.address %></td>
-        <td><%= external_location.description %></td>
-        <td><%= link_to 'Show', external_location, class:"btn btn-primary" %></td>
-        <td><%= link_to 'Edit', edit_external_location_path(external_location), class:"btn btn-primary" %></td>
-        <td><%= link_to 'Destroy', external_location, class:"btn btn-warning", method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+      <% if can? :manage, external_location %>
+        <tr>
+          <td><%= external_location.name %></td>
+          <td><%= external_location.address %></td>
+          <td><%= external_location.description %></td>
+          <td><%= link_to 'Show', external_location, class:"btn btn-primary" %></td>
+          <td><%= link_to 'Edit', edit_external_location_path(external_location), class:"btn btn-primary" %></td>
+          <td><%= link_to 'Destroy', external_location, class:"btn btn-warning", method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>

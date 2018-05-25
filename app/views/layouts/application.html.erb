@@ -21,18 +21,24 @@
           <strong>Info!</strong> <%= notice || alert %>
         </div>
       <% end %>
-      <% unless params[:controller]=='home' && params[:action]=='admin' %>
-      <% end %>  
+      
+      <%# unless params[:controller]=='home' && params[:action]=='admin' %>
+      <%# end %>  
         <div class="container-fluid p-4" style="background:#F5F5F5">
         <div role="main" class="main" style="min-height:70vh;">
+          <% if user_signed_in? %>
+            <% if (not params[:controller]=="user" and not (params[:action]=="new" or params[:action]=="edit") )%>
+              <%= render 'layouts/sidebar.1' %>
+            <% end %>
+          <% end %>
          
           <%= yield %>
           
         </div>
       </div>    
-    <% unless params[:controller]=='home' && params[:action]=='admin' %>
-      </div>
-    <% end %>
+    <%# unless params[:controller]=='home' && params[:action]=='admin' %>
+      <!--</div>-->
+    <%# end %>
       <%= render 'layouts/footer' %>
     </div>
   </body>

@@ -15,6 +15,20 @@ class User < ApplicationRecord
   has_and_belongs_to_many :trainings
   has_many :shift_users, dependent: :destroy
   has_many :shifts, through: :shift_users
+  has_many :skill_users, dependent: :destroy
+  has_many :skills, through: :skill_users
+  
+  validate :company_employees, on: [:create,:new]
+  
+  def company_employees
+    if (self.company and self.company.users.count >= self.company.tier)
+      errors[:base] << 'Limit Reached. Cannot add more users against this company'
+    end
+  end
+  
+  def fullname
+    [self.first_name, self.last_name].join(' ')
+  end
   
   
   # def self.from_omniauth(auth)

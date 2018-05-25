@@ -26,6 +26,7 @@ class ExternalLocationsController < ApplicationController
   # POST /external_locations.json
   def create
     @external_location = ExternalLocation.new(external_location_params)
+    @external_location.company_id = current_user.company_id
 
     respond_to do |format|
       if @external_location.save

@@ -1,4 +1,11 @@
       <%= form_for @user do |f| %>
+            <% if @user.errors.any? %>
+                <ul>
+                  <% @user.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                  <% end %>
+                </ul>
+            <% end %>
        <div class="row">
           
           <div class="col-md-6">
@@ -84,36 +91,53 @@
           <div class="col-md-12">
               <div class="form-group">
                   <div class="row">
-                    <div class="col-md-5">
+                    <div class="col-md-3">
                         <%= f.label :company %>
                       </div>
                       <div class="col-md-3">
-                          <label>Training</label>
+                        <label>Training</label>
                       </div>
-                      <div class="col-md-4">
-                           <%= f.label :role %>
+                      <div class="col-md-3">
+                        <label>Skills</label>
                       </div>
+                      <div class="col-md-3">
+                          <%= f.label :role %>
+                      </div>
+                      
                   </div>
                   <div class="row">
-                    <div class="col-md-5">
+                    <div class="col-md-3">
+                      <!--superadmin is making admin-->
                           <% if current_user.super_admin? and params[:action]=='new' %>
                                 <input type="text" disabled class="form-control form-control-md" value="<%= Company.find(params[:company_id]).name %>">
                               <%= f.hidden_field :company_id, value: params[:company_id], class: 'form-control form-control-md'  %>
+                          <!--manager is creating employee-->
                           <% elsif (not current_user.super_admin?) %>
                               <input type="text" disabled class="form-control form-control-md" value="<%= current_user.company.name %>">
                               <%= f.hidden_field :company_id, value: current_user.company.id, class: 'form-control form-control-md'  %>
+                          <!--superadmin is updating profile-->
                            <% elsif current_user.company_id.nil? %>
                                <input type="text" disabled class="form-control form-control-md" value="No Company">
                           <% end %>
                       </div>
                   
                       <div class="col-md-3">
+                          <%= f.object.company_id %>
+                          <div id="trainings"></div>
+                          <% if not f.object.company_id.nil? %>
+                            <%= f.collection_check_boxes(:training_ids, f.object.company.trainings, :id, :name) %>
+                            
+                          <% end %>
+                          
+                          
+                      </div>
+                      <div class="col-md-3">
                           <%#= f.fields_for :user_trainings do |fm| %>
-                            <%= f.collection_check_boxes(:training_ids, Training.all, :id, :name) %>
+                            <%= f.collection_check_boxes(:skill_ids, Skill.all, :id, :name) %>
                             
                           <%# end %>
                       </div>
-                      <div class="col-md-4">
+                      <div class="col-md-3">
                           <% if params[:action]=="new" and not current_user.super_admin? %>
                               <%= f.select :role, [["Employee","employee"],["Manager","manager"]] %>
                           <% elsif (params[:action]=="new" and current_user.super_admin?) %>
@@ -144,13 +168,13 @@
       </div>
       <div class="row">
           <div class="col-md-4">
-              <%= f.number_field :employee_number, :class => 'form-control form-control-md' %>
+              <%= f.text_field :employee_number, :class => 'form-control form-control-md' %>
           </div>
           <div class="col-md-4">
                <%= f.text_field :landline_number, :class => 'form-control form-control-md' %>
           </div>
           <div class="col-md-4">
-               <%= f.text_field :mobile_number, :class => 'form-control form-control-md' %>
+               <%= f.text_field :mobile_number, :class => 'form-control form-control-md', required: true, placeholder: 'Format should be +xxxxxxxxxxxx' %>
           </div>
       </div>
       <br/>
@@ -176,7 +200,7 @@
               <div class="form-group mb-0">
                   <div class="row">
                       <div class="col-md-12">
-                           <%= f.submit "Update", class: "login loginmodal-button loginmodal-submit" %>
+                           <%= f.submit "#{params[:action]=='new' ? 'Add new Employee':'Update'}", class: "login loginmodal-button loginmodal-submit" %>
                       </div>
                   </div>
               </div>
