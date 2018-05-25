@@ -66,3 +66,4 @@ gem 'figaro'
 gem 'twilio-ruby'
 gem 'fullcalendar-rails'
 gem 'momentjs-rails'
+gem "paperclip", "~> 6.0.0"

@@ -10,7 +10,10 @@ class SmsJob < ApplicationJob
         message = "Hi #{shift_user.user.first_name.present? ? shift_user.user.first_name: "User"}\n
           You have been assigned Shift on Task Management System by manager #{shift.manager.first_name}"
         recipient_number = '+923134082048'
-        TwilioTextMessenger.new(message,shift_user.user.mobile_number).call
+        
+        if shift_user.user.mobile_number
+          TwilioTextMessenger.new(message,shift_user.user.mobile_number).call
+        end
         
       end
     when "update"
@@ -18,7 +21,9 @@ class SmsJob < ApplicationJob
         message = "Hi #{shift_user.user.first_name.present? ? shift_user.user.first_name: "User"}\n
           There is update in shift assigned to you by manager #{shift.manager.first_name} in Task Management System"
         recipient_number = '+923134082048'
-        TwilioTextMessenger.new(message,recipient_number).call
+        if shift_user.user.mobile_number
+          TwilioTextMessenger.new(message,shift_user.user.mobile_number).call
+        end
         
       end
     

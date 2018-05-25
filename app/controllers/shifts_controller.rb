@@ -15,7 +15,7 @@ class ShiftsController < ApplicationController
   def accept_shift
     @shift_user = ShiftUser.find(params[:id])
     @shift_user.update(accepted: true)
-    redirect_to my_shifts_path,notice: "Shift Accepted Successfully"
+    redirect_to @shift_user.shift,notice: "Shift Accepted Successfully"
   end
 
   # GET /shifts/1

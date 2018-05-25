@@ -62,7 +62,7 @@
       </div>
       <div class="row">
           
-          <div class="col-md-6">
+          <div class="col-md-4">
               <div class="form-group">
                   <div class="row">
                       <div class="col-md-3">
@@ -74,7 +74,7 @@
                   </div>
               </div>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-4">
               <div class="form-group">
                   <div class="row">
                       <div class="col-md-3">
@@ -82,6 +82,18 @@
                       </div>
                       <div class="col-md-9">
                           <%= f.text_field :last_name, :class => 'form-control form-control-md' %>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-4">
+              <div class="form-group">
+                  <div class="row">
+                      <div class="col-md-3">
+                          <%= f.label :profile_picture %>
+                      </div>
+                      <div class="col-md-9">
+                          <%= f.file_field :avatar, :class => 'form-control form-control-md' %>
                       </div>
                   </div>
               </div>
@@ -122,7 +134,6 @@
                       </div>
                   
                       <div class="col-md-3">
-                          <%= f.object.company_id %>
                           <div id="trainings"></div>
                           <% if not f.object.company_id.nil? %>
                             <%= f.collection_check_boxes(:training_ids, f.object.company.trainings, :id, :name) %>
