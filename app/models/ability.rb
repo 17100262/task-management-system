@@ -20,6 +20,7 @@ class Ability
       if user.super_admin?
         can :manage, :all
         cannot :manage,Training
+        cannot :schedule,User
       elsif user.admin?
         can :manage, ExternalLocation, :company_id => user.company_id
         can :manage, Training, :company_id => user.company_id
