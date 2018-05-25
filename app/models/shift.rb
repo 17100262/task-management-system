@@ -4,6 +4,7 @@ class Shift < ApplicationRecord
   # validates_associated :shift_users
   # ,:before_remove => :destroy_email
   validate :check_conflicting_shift
+  # ,:on => :create
   
   has_many :users, through: :shift_users
   belongs_to :manager, class_name: "User"
@@ -28,7 +29,8 @@ class Shift < ApplicationRecord
     # errors.add(:base,"#{self.shift_users}")
     # a = false
     self.shift_users.each do |shift_user|
-      shift_user.user.shifts.each do |shift|
+      shift_user.user.shifts.where.not(id: self.id).each do |shift|
+        
         if (shift.start_time..shift.end_time).overlaps?(self.start_time..self.end_time)
           errors[:base] << "This Shift Overlaps with #{shift_user.user.fullname}'s other shift"
           a = false
