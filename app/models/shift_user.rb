@@ -9,7 +9,12 @@ class ShiftUser < ApplicationRecord
   
   
   def status_notify
+    
     BasicMailer.shift_mail(self,"accepted").deliver_later
+    manager = self.shift.manager
+    
+    message = "Hi #{manager.first_name} the shift assigned by you to employee #{self.user.first_name} has been accepted"
+    TwilioTextMessenger.new(message,manager.mobile_number).call
   end
   
   

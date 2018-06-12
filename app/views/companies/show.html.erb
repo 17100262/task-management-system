@@ -21,6 +21,7 @@
   </thead>
 
   <tbody>
+    
     <% @company.locations.each do |location| %>
       <tr>
         <td><%= location.name %></td>
@@ -61,9 +62,9 @@
 
 <%= link_to 'Add new Location', new_location_path, class:"btn btn-primary" if not current_user.super_admin? and can? :create, Location %> 
 <%= link_to 'Add new Employee', new_user_path, class:"btn btn-primary" if not current_user.super_admin? and can? :create, User %>
+<%= link_to 'Add Admin', make_admin_path(@company), class:"btn btn-primary" if current_user.super_admin? %>
 
-
-<%= link_to 'Edit', edit_company_path(@company), class:"btn btn-primary" if can? :update, @company %> 
+<%= link_to 'Edit Company', edit_company_path(@company), class:"btn btn-primary" if can? :update, @company %> 
 <%= link_to 'Back', companies_path, class:"btn btn-primary" if can? :index, Company %>
 </div>
 </div>

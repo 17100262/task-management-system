@@ -1,0 +1,33 @@
+<div class="nested-fields training-form">
+    <!--hello-->
+    <!--t.bigint "training_id"-->
+    <!--t.bigint "user_id"-->
+    <!--t.date "date_of_completion"-->
+    <!--t.integer "duration"-->
+    <!--t.date "training_expiry"-->
+    <!--t.integer "training_type"-->
+    <!--t.string "training_provider"-->
+    
+    <%= f.select(:training_id, Training.all.collect {|p| [ p.name, p.id ] }, { prompt:"Training Name" }) %>
+    <%= f.date_field :date_of_completion, class:"form-control form-control-md dateclass placeholderclass completion-date", placeholder: "Date of Completion" %>
+    <%= f.number_field :duration, class:"form-control form-control-md duration", placeholder: "Duration" %>
+    <%= f.date_field :training_expiry, class:"form-control form-control-md dateclass placeholderclass expiry-date",placeholder: "Expiry Date" %>
+    <%= f.select :training_type, TrainingUser.training_types.keys.map { |w| [w.humanize, w] }, prompt:"Training Type" %>
+    <%= f.text_field :training_provider, class:"form-control form-control-md", placeholder: "Training Provider"  %>
+    <%= link_to_remove_association "Remove Training", f, class:"btn btn-primary" %>
+</div>
+<script>
+    $('input[type="date"]').click(function(){
+       $(this).removeClass('placeholderclass');
+   });
+$('.duration').keyup(function(){
+$(this).closest('.training-form').children('.expiry-date').removeClass('placeholderclass');
+var d1val = $(this).closest('.training-form').children('.completion-date').val();
+var d1 = new Date(d1val);
+var diff = $(this).val();
+var day = 1000*60*60*24;
+var d2 = new Date(diff*day + Math.ceil(d1));
+var df = d2.getFullYear()  + "-" + ("0"+(d2.getMonth()+1)).slice(-2) + "-" + ("0" + d2.getDate()).slice(-2);
+var d2val = $(this).closest('.training-form').children('.expiry-date').val(df);
+});
+</script>

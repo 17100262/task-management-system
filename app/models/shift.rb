@@ -49,8 +49,8 @@ class Shift < ApplicationRecord
   def send_update_email
     self.shift_users.each do |shift_user|
       BasicMailer.shift_mail(shift_user,"update").deliver_later
-      # message = "Shift has been updated."
-      # TwilioTextMessenger.new(message,shift_user.user.mobile_number).call
+      message = "Shift has been updated."
+      TwilioTextMessenger.new(message,shift_user.user.mobile_number).call
     end
   end
   

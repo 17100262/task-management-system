@@ -45,6 +45,8 @@
         </tr>
     </tbody>
 </table>
-   
+
+<%= link_to 'Edit Profile', edit_user_path(current_user), class: "btn btn-primary" if can? :update, current_user %>
 </div>
 
+</div>

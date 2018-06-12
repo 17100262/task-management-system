@@ -32,6 +32,7 @@
               <%= @shift.external_location.name %>
             </p>
             
+            <% if current_user.manager? %>
             <p>
               <strong>Assigned Employees:</strong>
               
@@ -39,12 +40,15 @@
                 <% @shift.shift_users.each do |shift_user| %>
                   <li>
                     <%= shift_user.user.first_name %>
-                    (Accepted: <%= shift_user.accepted ? "Yes":"No" %>)
+                      <ol>Accepted: <%= shift_user.accepted ? "Yes":"No" %></ol>
+                      <ol> Confirmed by Manager: <%= shift_user.confirmed_by_manager ? "Yes":"No" %> </ol>
+                    <ol><%= link_to 'Confirm Shift', confirm_shift_path(shift_user) if not shift_user.confirmed_by_manager %></ol>
                   </li>
                 <% end %>
               </ul>
               
             </p>
+            <% end %>
             
             
             <center><%= link_to 'Edit', edit_shift_path(@shift), class:"btn btn-primary" if can? :update, @shift %>

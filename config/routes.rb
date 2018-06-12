@@ -19,6 +19,8 @@ Rails.application.routes.draw do
   # get 'users/profile/edit', to: 'users#edit_profile', as: :edit_profile
   resources :users
   get 'users/:id/schedule', to: "users#schedule", as: :user_schedule
+  get 'shift_user/:id/confirm_shift',to: "shifts#confirm_shift",as: :confirm_shift
+  
   # , path: '/users/profile'
 
 end

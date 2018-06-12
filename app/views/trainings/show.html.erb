@@ -1,40 +1,17 @@
 <div class="col-lg-9">
     <div class="row">
-        <div class="loginmodal-container">
+        <div class="loginmodal-container pt-3">
             <div class="loginmodal-container-2">
-            <p>
+            <center><p style="color: #000;">
               <strong>Name:</strong>
               <%= @training.name %>
             </p>
-            
-            <p>
-              <strong>Date of completion:</strong>
-              <%= @training.date_of_completion %>
-            </p>
-            
-            <p>
-              <strong>Duration:</strong>
-              <%= @training.duration %>
-            </p>
-            
-            <p>
-              <strong>Training expiry:</strong>
-              <%= @training.training_expiry %>
-            </p>
-            
-            <p>
-              <strong>Type:</strong>
-              <%= @training.training_type %>
-            </p>
-            
-            <p>
-              <strong>Training provider:</strong>
-              <%= @training.training_provider %>
-            </p>
+            </center>
             
             <center><%= link_to 'Edit', edit_training_path(@training),class:"btn btn-primary" %>
             <%= link_to 'Back', trainings_path, class:"btn btn-primary" %></center>
           </div>
         </div>
     </div>
-</div>      
+</div> 
+</div>

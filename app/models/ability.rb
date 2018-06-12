@@ -19,11 +19,11 @@ class Ability
       
       if user.super_admin?
         can :manage, :all
-        cannot :manage,Training
-        cannot :schedule,User
+        can :manage,Training
+        can :schedule,User, :id => user.id
       elsif user.admin?
         can :manage, ExternalLocation, :company_id => user.company_id
-        can :manage, Training, :company_id => user.company_id
+        # can :manage, Training, :company_id => user.company_id
         can :show, Company, :id => user.company.id
         can :manage, Location,:company_id => user.company.id
         cannot :index,Location
@@ -35,10 +35,10 @@ class Ability
         
       elsif user.manager?
         can :manage ,Shift, :manager_id => user.id
-        can :schedule, User
+        can :schedule,User, :id => user.id
       
       elsif user.employee?
-        
+        can :schedule,User, :id => user.id
         # can :accept_shig
       end
     #

@@ -1,5 +1,5 @@
 class ShiftsController < ApplicationController
-  before_action :set_shift, only: [:show, :edit, :update, :destroy]
+  before_action :set_shift, only: [:show, :edit, :update, :destroy,:confirm_shift]
   authorize_resource
 
   # GET /shifts
@@ -10,6 +10,16 @@ class ShiftsController < ApplicationController
   
   def my_shifts
     @shifts = current_user.shift_users.includes(:shift)
+  end
+  
+  def confirm_shift
+    @shift_user = ShiftUser.find(params[:id])
+    @shift_user.update(confirmed_by_manager: true)
+    user = @shift_user.user
+    message = "Hi #{user.first_name} the shift accepted by you has been confirmed by manager #{@shift.manager.first_name}"
+                
+    TwilioTextMessenger.new(message,@shift_user.user.mobile_number).call
+    redirect_to @shift,notice: "Shift Confirmed Successfully"
   end
   
   def accept_shift

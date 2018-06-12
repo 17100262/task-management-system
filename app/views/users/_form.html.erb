@@ -69,7 +69,7 @@
                           <%= f.label :first_name %>
                       </div>
                       <div class="col-md-9">
-                           <%= f.text_field :first_name, :class => 'form-control form-control-md' %>
+                           <%= f.text_field :first_name, :class => 'form-control form-control-md',required: true %>
                       </div>
                   </div>
               </div>
@@ -103,22 +103,20 @@
           <div class="col-md-12">
               <div class="form-group">
                   <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <%= f.label :company %>
                       </div>
-                      <div class="col-md-3">
-                        <label>Training</label>
-                      </div>
-                      <div class="col-md-3">
+                      
+                      <div class="col-md-4">
                         <label>Skills</label>
                       </div>
-                      <div class="col-md-3">
+                      <div class="col-md-4">
                           <%= f.label :role %>
                       </div>
                       
                   </div>
                   <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                       <!--superadmin is making admin-->
                           <% if current_user.super_admin? and params[:action]=='new' %>
                                 <input type="text" disabled class="form-control form-control-md" value="<%= Company.find(params[:company_id]).name %>">
@@ -133,22 +131,14 @@
                           <% end %>
                       </div>
                   
-                      <div class="col-md-3">
-                          <div id="trainings"></div>
-                          <% if not f.object.company_id.nil? %>
-                            <%= f.collection_check_boxes(:training_ids, f.object.company.trainings, :id, :name) %>
-                            
-                          <% end %>
-                          
-                          
-                      </div>
-                      <div class="col-md-3">
+                      
+                      <div class="col-md-4">
                           <%#= f.fields_for :user_trainings do |fm| %>
                             <%= f.collection_check_boxes(:skill_ids, Skill.all, :id, :name) %>
                             
                           <%# end %>
                       </div>
-                      <div class="col-md-3">
+                      <div class="col-md-4">
                           <% if params[:action]=="new" and not current_user.super_admin? %>
                               <%= f.select :role, [["Employee","employee"],["Manager","manager"]] %>
                           <% elsif (params[:action]=="new" and current_user.super_admin?) %>
@@ -157,15 +147,29 @@
                           <% else %>
                               <input type="text" disabled class="form-control form-control-md" value="<%= @user.role.humanize %>">
                           <% end %>
-                          
-                          
-                          
                       </div>
-                      
                   </div>
               </div>
           </div>
       </div>
+      <div class="row mb-4">
+        <div class="col-md-12">
+              <label>Training</label>
+              <div id="trainings"></div>
+              <%# if not f.object.company_id.nil? %>
+                <%#= f.collection_check_boxes(:training_ids, Training.all, :id, :name) %>
+                <div id="training_users">
+                  <%= f.fields_for :training_users do |builder| %>
+                    <%= render 'training_user_fields', f: builder %>
+                    
+                  <% end %>
+                  <div class=".links">
+                    <%= link_to_add_association 'Add Training', f, :training_users, class: "btn btn-primary btn-sm" %>
+                  </div>
+                </div>
+              
+          </div>
+        </div>
       <div class="row">
           <div class="col-md-4">
               <%= f.label :employee_number %>
@@ -185,7 +189,8 @@
                <%= f.text_field :landline_number, :class => 'form-control form-control-md' %>
           </div>
           <div class="col-md-4">
-               <%= f.text_field :mobile_number, :class => 'form-control form-control-md', required: true, placeholder: 'Format should be +xxxxxxxxxxxx' %>
+               <%= f.text_field :mobile_number, :class => 'form-control form-control-md', required: true, title: 'Format should be +xxxxxxxxxxxx', pattern:"[+]{1}[0-9]{9,}" %>
+               
           </div>
       </div>
       <br/>

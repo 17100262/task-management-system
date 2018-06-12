@@ -27,7 +27,7 @@
         <div class="container-fluid p-4" style="background:#F5F5F5">
         <div role="main" class="main" style="min-height:70vh;">
           <% if user_signed_in? %>
-            <% if (not params[:controller]=="user" and not (params[:action]=="new" or params[:action]=="edit") )%>
+            <% if (not params[:controller]=="user" and not (params[:action]=='create' or params[:action]=="new" or params[:action]=="edit") )%>
               <%= render 'layouts/sidebar.1' %>
             <% end %>
           <% end %>

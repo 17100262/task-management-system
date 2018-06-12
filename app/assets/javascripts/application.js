@@ -13,6 +13,7 @@
 //= require rails-ujs
 //= require jquery
 //= require turbolinks
+//= require cocoon
 //= require moment 
 //= require fullcalendar
 //= require date_range_picker
@@ -21,8 +22,10 @@
 
 // $(document).on('turbolinks:load', initialize_calendar);
 
-
+$( document ).on('turbolinks:load', function() {
 $(document).ready(function() {
    $('.alert').delay(2000).fadeOut();
+   
+});
 });
 

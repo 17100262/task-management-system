@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180525120822) do
+ActiveRecord::Schema.define(version: 20180611092924) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(version: 20180525120822) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "accepted", default: false
+    t.boolean "confirmed_by_manager", default: false
     t.index ["shift_id"], name: "index_shift_users_on_shift_id"
     t.index ["user_id"], name: "index_shift_users_on_user_id"
   end
@@ -88,8 +89,9 @@ ActiveRecord::Schema.define(version: 20180525120822) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "trainings", force: :cascade do |t|
-    t.string "name"
+  create_table "training_users", force: :cascade do |t|
+    t.bigint "training_id"
+    t.bigint "user_id"
     t.date "date_of_completion"
     t.integer "duration"
     t.date "training_expiry"
@@ -97,13 +99,16 @@ ActiveRecord::Schema.define(version: 20180525120822) do
     t.string "training_provider"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "company_id"
-    t.index ["company_id"], name: "index_trainings_on_company_id"
+    t.index ["training_id"], name: "index_training_users_on_training_id"
+    t.index ["user_id"], name: "index_training_users_on_user_id"
   end
 
-  create_table "trainings_users", id: false, force: :cascade do |t|
-    t.bigint "training_id", null: false
-    t.bigint "user_id", null: false
+  create_table "trainings", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "company_id"
+    t.index ["company_id"], name: "index_trainings_on_company_id"
   end
 
   create_table "user_locations", force: :cascade do |t|

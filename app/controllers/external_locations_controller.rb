@@ -30,11 +30,9 @@ class ExternalLocationsController < ApplicationController
 
     respond_to do |format|
       if @external_location.save
-        format.html { redirect_to @external_location, notice: 'External location was successfully created.' }
-        format.json { render :show, status: :created, location: @external_location }
+        format.html { redirect_to external_locations_path, notice: 'External location was successfully created.' }
       else
         format.html { render :new }
-        format.json { render json: @external_location.errors, status: :unprocessable_entity }
       end
     end
   end
