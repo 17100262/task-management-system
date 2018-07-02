@@ -119,14 +119,18 @@
                     <div class="col-md-4">
                       <!--superadmin is making admin-->
                       <%#= params[:action] %>
-                          <% if current_user.super_admin? and (params[:action]=='new' or params[:action]=='edit') %>
+                          <% if current_user.super_admin? and params[:action]=='new' %>
                                 <input type="text" disabled class="form-control form-control-md" value="<%= Company.find(params[:company_id]).name %>">
                               <%= f.hidden_field :company_id, value: params[:company_id], class: 'form-control form-control-md'  %>
+                          <!--super_admin is editing admin user-->
+                          <% elsif (current_user.super_admin? and params[:action]=='edit') %>
+                                <input type="text" disabled class="form-control form-control-md" value="<%= @user.company.name %>">
+                              <%= f.hidden_field :company_id, value: @user.company.id, class: 'form-control form-control-md'  %>
                           <!--manager is creating employee-->
                           <% elsif (not current_user.super_admin?) %>
                               <input type="text" disabled class="form-control form-control-md" value="<%= current_user.company.name %>">
                               <%= f.hidden_field :company_id, value: current_user.company.id, class: 'form-control form-control-md'  %>
-                          <!--superadmin is updating profile-->
+                          <!--superadmin is updating his profile-->
                            <% elsif current_user.company_id.nil? %>
                                <input type="text" disabled class="form-control form-control-md" value="No Company">
                           <% end %>
