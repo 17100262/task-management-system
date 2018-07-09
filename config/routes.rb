@@ -21,6 +21,10 @@ Rails.application.routes.draw do
   get 'users/:id/schedule', to: "users#schedule", as: :user_schedule
   get 'shift_user/:id/confirm_shift',to: "shifts#confirm_shift",as: :confirm_shift
   
+  get 'unavailability/new',to: "shifts#unavailability_new", as: :unavailability_new
+  get 'unavailability/:id', to: "shifts#unavailability_show",as: :unavailability_show
+  post 'unavailability', to: "shifts#unavailability_create", as: :unavailability_create
+  
   # , path: '/users/profile'
 
 end

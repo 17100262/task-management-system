@@ -29,7 +29,7 @@
             
             <p>
               <strong>External location:</strong>
-              <%= @shift.external_location.name %>
+              <%= @shift.external_location.name if @shift.external_location %>
             </p>
             
             <% if current_user.manager? %>

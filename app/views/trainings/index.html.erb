@@ -17,7 +17,7 @@
           <td><%= training.name %></td>
           <td><%= link_to 'Show', training, class:"btn btn-primary" %></td>
           <td><%= link_to 'Edit', edit_training_path(training), class:"btn btn-primary" %></td>
-          <td><%= link_to 'Destroy', training, class:"btn btn-warning", method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= link_to 'Delete', training, class:"btn btn-warning", method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <% end %>
       </tr>
     <% end %>

@@ -43,6 +43,27 @@ class ShiftsController < ApplicationController
   # GET /shifts/1/edit
   def edit
   end
+  
+  def unavailability_new
+    @shift = Shift.new
+  end
+  
+  def unavailability_show
+    @shift = Shift.find(params[:id])
+  end
+  
+  def unavailability_create
+    @shift = Shift.new(shift_params)
+    @shift.company_id = current_user.company.id
+
+    respond_to do |format|
+      if @shift.save
+        format.html { redirect_to unavailability_show_path(@shift), notice: 'Unavailable Days were successfully added.' }
+      else
+        format.html { render :unavailability_new }
+      end
+    end
+  end
 
   # POST /shifts
   # POST /shifts.json

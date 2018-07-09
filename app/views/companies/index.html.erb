@@ -15,7 +15,7 @@
         <td><%= company.name %></td>
         <td><%= link_to 'Show', company, class:"btn btn-primary" %></td>
         <td><%= link_to 'Edit', edit_company_path(company), class:"btn btn-primary" %></td>
-        <td><%= link_to 'Destroy', company, class:"btn btn-warning", method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Delete', company, class:"btn btn-warning", method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <td><%= link_to 'Add Admin', make_admin_path(company), class:"btn btn-primary" if current_user.super_admin? %>  </td>
       </tr>
     <% end %>

@@ -27,7 +27,7 @@
         <td><%= location.name %></td>
         <td><%= link_to 'Show', location, class:"btn btn-primary" %></td>
         <td><%= link_to 'Edit', edit_location_path(location), class:"btn btn-primary" %></td>
-        <td><%= link_to 'Destroy', location, method: :delete, class:"btn btn-warning", data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Delete', location, method: :delete, class:"btn btn-warning", data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -52,7 +52,7 @@
         <td><%= employee.first_name.present? ? "#{employee.first_name}":"Not Provided" %></td>
         <td><%= link_to 'Schedule', user_schedule_path(employee),class:"btn btn-primary" if can? :schedule, employee %> </td>
         <td><%= link_to 'Edit', edit_user_path(employee), class:"btn btn-primary" %></td>
-        <td><%= link_to 'Destroy', employee, method: :delete, class:"btn btn-warning", data: { confirm: 'Are you sure?'} %></td>
+        <td><%= link_to 'Delete', employee, method: :delete, class:"btn btn-warning", data: { confirm: 'Are you sure?'} %></td>
       </tr>
     <% end %>
   </tbody>

@@ -1,0 +1,53 @@
+<%= form_for(@shift, url: unavailability_create_path) do |form| %>
+  <% if @shift.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@shift.errors.count, "error") %> prohibited this shift from being saved:</h2>
+
+      <ul>
+      <% @shift.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <div class="form-group shift_date">
+    <%= form.label :start_time, class:"label_start_date" %>
+    <%= form.datetime_select :start_time, id: :shift_start_date %>
+  </div>
+
+  
+  <div class="form-group shift_date">
+    <%= form.label :end_time, class:"label_end_date" %>
+    <%= form.datetime_select :end_time, id: :shift_end_date %>
+  </div>
+  
+  <!--<div class="form-group">-->
+    <%#= form.label :shift_status %>
+    <%#= form.number_form-group :shift_status, id: :shift_shift_status %>
+    <%= form.hidden_field :shift_status, value: "unavailable" %>
+  <!--</div>-->
+
+  <!--<div class="form-group">-->
+    <%#= form.label :skills_required %>
+    <%#= form.text_area :skills_required, id: :shift_skills_required, class:"form-control" %>
+  <!--</div>-->
+
+  <!--<div class="form-group">-->
+    <%#= form.label :external_location_id %>
+    <%#= form.text_form-group :external_location_id, id: :shift_external_location_id %>
+    <%#= form.collection_radio_buttons(:external_location_id, ExternalLocation.all, :id, :name) %>
+
+  <!--</div>-->
+  
+  <!--<div class="form-group">-->
+    <%#= form.label :assign_employees %>
+    <%#= form.text_form-group :external_location_id, id: :shift_external_location_id %>
+    <%= form.hidden_field  :user_ids,multiple: true, value: current_user.id %>
+
+  <!--</div>-->
+
+  <div class="actions">
+    <%= form.submit "Save",class: "login loginmodal-button loginmodal-submit" %>
+  </div>
+<% end %>

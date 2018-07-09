@@ -12,6 +12,7 @@ class Ability
         can :read, Shift do |shift|
           shift.users.pluck(:id).include?(user.id)
         end
+        can [:unavailability_new,:unavailability_show,:unavailability_create], Shift
         can :accept_shift, Shift do |shift|
           shift.users.pluck(:id).include?(user.id)
         end
@@ -35,7 +36,8 @@ class Ability
         
       elsif user.manager?
         can :manage ,Shift, :manager_id => user.id
-        can :schedule,User, :id => user.id
+        can :schedule,User
+        # , :id => user.id
       
       elsif user.employee?
         can :schedule,User, :id => user.id

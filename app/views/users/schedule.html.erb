@@ -21,12 +21,16 @@ $('.calendar').fullCalendar({
             <% end %>
             selectHelper: true,
             // editable: true,
+            // eventColor: '#378006',
             eventLimit: true,
             eventRender: function(event,element){
                 var description = event.description; 
                 var firstname = event.title;
-                element.find('.fc-title').append("<br/> <b>Manager</b>: " + event.manager);
-                element.find('.fc-title').append("<br/> <b>Accepted</b>: " + event.accepted);
+                if(event.title != 'Unavailable' ){
+                    element.find('.fc-title').append("<br/> <b>Manager</b>: " + event.manager);
+                    element.find('.fc-title').append("<br/> <b>Accepted</b>: " + event.accepted);
+                    
+                }
                 // element.qtip({
                 //   content: event.description
                 // });

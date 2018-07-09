@@ -1,5 +1,5 @@
 class Shift < ApplicationRecord
-  belongs_to :external_location
+  belongs_to :external_location, optional: true
   has_many :shift_users, dependent: :destroy
   # validates_associated :shift_users
   # ,:before_remove => :destroy_email
@@ -7,9 +7,9 @@ class Shift < ApplicationRecord
   # ,:on => :create
   
   has_many :users, through: :shift_users
-  belongs_to :manager, class_name: "User"
+  belongs_to :manager, class_name: "User",optional: true
   belongs_to :company
-  enum shift_status: [:pending,:approved,:cancelled]
+  enum shift_status: [:pending,:approved,:cancelled,:unavailable]
   after_update_commit :send_update_email
   
   attr_accessor :date_range
@@ -18,11 +18,11 @@ class Shift < ApplicationRecord
   after_create_commit :send_sms
   
   def send_sms
-    SmsJob.perform_later(self,'create')
+    SmsJob.perform_later(self,'create') if self.shift_status!="unavailable"
   end
   
   def update_shift_sms
-    SmsJob.perform_later(self,'update')
+    SmsJob.perform_later(self,'update') if self.shift_status!="unavailable"
   end
   
   def check_conflicting_shift
