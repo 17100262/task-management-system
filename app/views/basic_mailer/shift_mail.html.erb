@@ -4,7 +4,7 @@
     
     <h1>Hi <%= @shift.user.first_name.present? ? @shift.user.first_name: "User" %></h1>
     <p>
-        You have been assigned <%= link_to 'Shift' ,shift_url(@shift.shift) %> on <strong> Task Management System</strong> by manager <strong> <%= @shift.shift.manager.first_name %></strong>. 
+        You have been assigned <%= link_to 'Shift' ,shift_url(@shift.shift) %> on <strong> Lambano People </strong> by manager <strong> <%= @shift.shift.manager.first_name %></strong>. 
     </p>
 <% elsif (@status=='accepted') %>
     

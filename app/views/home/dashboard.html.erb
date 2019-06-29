@@ -1,26 +1,108 @@
+<!-- Main content -->
+<section class="content">
+  <div class="clearfix visible-sm-block"></div>
+    	
+  <% if current_user.super_admin? %>
+    	<div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="info-box">
+          <span class="info-box-icon bg-main"><i class="fa fa-building-o"></i></span>
+            <div class="info-box-content">
+              <span class="info-box-text">Number of COMPANIES</span>
+              <span class="info-box-number"> <%= Company.count %> </span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+          <!-- /.info-box -->
+      </div>
 
+<!-- /.number of shifts -->
 
-	<!--<div class="calendar"></div>-->
-	<div class="col-lg-8">
-		<% if current_user.super_admin? %>
-			Number of Companies: <%= Company.count %> <br>
-			Number of Shifts: <%= Shift.count %> <br>
-			<% total  = Shift.all.map(&:duration).sum %>
-			<% total_min = total / 1.minutes %>
-			Number of Hours: <%= "#{total_min.to_i / 60} hours and #{total_min.to_i % 60} minutes" %> <br>
+      <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-main"><i class="fa fa-calendar-check-o"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">TOTAL SHIFTS</span>
+              <span class="info-box-number"><%= Shift.count %></span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+      </div>
+	
+	    <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-main"><i class="fa fa-clock-o"></i></span>
+
+            <div class="info-box-content">
+              <% total  = Shift.all.map(&:duration).sum %>
+			        <% total_min = total / 1.minutes %>
+              <span class="info-box-text">HOURS</span>
+              <span class="info-box-number"><%= "#{total_min.to_i / 60} hours and #{total_min.to_i % 60} minutes" %></span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+			
 		<% elsif current_user.admin? or current_user.manager? %>
-			Total Shifts booked: <%= current_user.company.shifts.where(shift_status: 'approved').count %> <br>
-			<% total  = current_user.company.shifts.where(shift_status: 'approved').map(&:duration).sum %>
-			<% total_min = total / 1.minutes %>
-			Total Hours Booked: <%= "#{total_min.to_i / 60} hours and #{total_min.to_i % 60} minutes" %> <br>
+		<div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-main"><i class="fa fa-users"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">SHIFTS</span>
+              <span class="info-box-number"><%= current_user.company.shifts.where(shift_status: 'approved').count %></span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+    </div>
+		
+		<div class="col-md-4 col-sm-6 col-xs-12">
+      <div class="info-box">
+        <span class="info-box-icon bg-main"><i class="fa fa-clock-o"></i></span>
+
+        <div class="info-box-content">
+          <% total  = current_user.company.shifts.where(shift_status: 'approved').map(&:duration).sum %>
+			     <% total_min = total / 1.minutes %>
+            <span class="info-box-text">HOURS</span>
+            <span class="info-box-number"><%= "#{total_min.to_i / 60} hours and #{total_min.to_i % 60} minutes" %></span>
+        </div>
+            <!-- /.info-box-content -->
+      </div>
+          <!-- /.info-box -->
+    </div>
+			
 		<% elsif current_user.employee? %>
-			Company: <%= current_user.company.name %>
-			Trainings:
-			<ul>
-				<% current_user.trainings.each do |training| %>
-					<li><%= training.name %></li>
-				<% end %>
-			</ul>
-		<% end %>
-	</div>
-</div>
+		
+		
+		  <div class="card border-top">
+		    <div class="card-body">
+		      <h4 class="card-title">Company</h4>
+		        <h5 class="card-text">
+			     <%= current_user.company.name %>
+			     </h5>
+			  </div>
+			</div>
+			
+			<div class="card border-top">
+		    <div class="card-body">
+		      <h4 class="card-title">Training</h4>
+		        <h5 class="card-text">
+			     <% current_user.trainings.each do |training| %>
+			     <ul >  
+            <li><%= training.name %></li>
+          </ul>
+          <% end %>
+        <% end %>
+			     </h5>
+			  </div>
+			</div>
+		
+
+      
+  </section>
+
+
+

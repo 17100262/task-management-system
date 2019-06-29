@@ -1,56 +1,26 @@
-<header id="header" class="header-narrow">
-	<div class="header-body">
-		<div class="header-container container">
-			<div class="header-row">
-				<div class="header-column">
-					<div class="header-row">
-						<div class="header-logo">
-							<a href="/" style="text-decoration:none;">
-			                <strong style="font-size:25px; vertical-align: middle;">TASK MANAGEMENT SYSTEM</strong>							</a>
-						</div>
-					</div>
-				</div>
-				<div class="header-column justify-content-end">
-					<div class="header-row">
-						<div class="header-nav">
-							<div class="header-nav-main header-nav-main-effect-1 header-nav-main-sub-effect-1">
-								<nav class="collapse">
-									<ul class="nav nav-pills" id="mainNav">
-										<!--<li class="">-->
-										<!--        <a class="nav-link active" href="<%#= root_path %>">Home <span class="sr-only">(current)</span></a>-->
-										<!--      </li>-->
-										      
-								        <% if user_signed_in? %>
-									         <li class="">
-									         	<a class="nav-link" href="<%= user_path(current_user) %>">Profile</a>
-									         </li>
-									          
-									          <%# if current_user.admin? %>
-									          <li class="">
-									          	<a class="nav-link" href="<%= dashboard_path %>">Dashboard</a>
-									          </li>
-									          <%# end %>
-								         <% end %>
-								        <li class="">
-								            <% if user_signed_in? %>
-								                <a class="nav-link" href="<%= destroy_user_session_path %>" data-method="delete">Log Out</a>
-								            <% else %>
-								                <a class="nav-link" href="<%#= new_user_registration_path %>">Sign Up</a>
-								            <% end %>
-								        </li>
-									      <!--<li class="">-->
-									      <!--  <a class="nav-link disabled" href="#">Disabled</a>-->
-									      <!--</li>-->
-					       			</ul>
-								</nav>
-							</div>
-							<button class="btn header-btn-collapse-nav" data-toggle="collapse" data-target=".header-nav-main nav">
-								<i class="fa fa-bars"></i>
-							</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</header>
+<nav class="navbar navbar-expand-lg bg-dark d-flex">
+  <a class="navbar-brand" href="#">LAMBANO PEOPLE</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+    <ul class="navbar-nav ">
+     <% if user_signed_in? %>
+      <li class="nav-item active">
+        <a class="nav-link" href="<%= user_path(current_user) %>">Profile</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="<%= dashboard_path %>">Dashboard</a>
+      </li>
+      <% end %>
+      <% if user_signed_in? %>
+      <li class="nav-item">
+        <a class="nav-link" href="<%= destroy_user_session_path %>" data-method="delete">Log Out</a>
+      </li>
+      <% end %>
+      
+    </ul>
+  </div>
+</nav>
+
+

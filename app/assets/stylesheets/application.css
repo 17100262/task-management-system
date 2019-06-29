@@ -12,6 +12,7 @@
  *
  *= require_tree .
  *= require_self
+ *= require font-awesome
  *= require fullcalendar
  */
  input[type="checkbox"], input[type="radio"]{
@@ -54,5 +55,11 @@
  
   width: 0%;
   content: "";
+}
+
+.border-top {
+ border-top-width: 10px;
+ border-top-color: #A8216A !important;
+ border-style: solid none none none;
 }
 

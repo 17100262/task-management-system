@@ -1,40 +1,41 @@
+<div class="justify-content-md-center">
+	<ul class="nav d-flex">
+		
+		<li class="nav-item">
+		<%= link_to 'Manage Companies', companies_path, class:"nav-link" if can? :manage, Company %>
+		</li>
+		<li class="nav-item">
+		<%#= link_to 'Manage Users', users_path, class:"nav-link", if can? :manage, User %>
+		</li>
+		<li class="nav-item">
+		<%= link_to 'Manage Locations', locations_path, class:"nav-link" if not current_user.super_admin? and can? :index, Location %>
+		</li>
+		<li class="nav-item">
+		<%= link_to 'Manage External Locations', external_locations_path, class:"nav-link" if not current_user.super_admin? and can? :manage, ExternalLocation %>
+		</li>
+		<li class="nav-item">
+		<%= link_to 'Manage Shifts', shifts_path, class:"nav-link" if not current_user.super_admin? and can? :manage, Shift %>
+		</li>
+		<li class="nav-item">
+		<%= link_to 'My Company', company_path(current_user.company), class:"nav-link" if (can? :show, current_user.company and not current_user.super_admin?) %>
+		</li>
+		<li class="nav-item">
+		<%= link_to 'Manage Trainings', trainings_path, class:"nav-link" if can? :manage, Training %>
+		</li>
+		<li class="nav-item">
+		<%= link_to 'Manage Skills', skills_path, class:"nav-link" if can? :manage, Skill %>
+		</li>
+		<li class="nav-item">
+		<%= link_to 'My Shifts', user_schedule_path(current_user), class:"nav-link" if can? :my_shifts, Shift %>
+		</li>
+		<li class="nav-item">
+		<%= link_to 'Availability', unavailability_new_path, class:"nav-link" %>
+		</li>
+		
+	</ul>
+</div>
+	
+	 
 
-<div class="row">
-	<div class="col-lg-3">
-	   <div class="tabs tabs-vertical tabs-left tabs-navigation">
-	      <ul class="nav nav-tabs col-sm-3">
-	         <li class="nav-item">
-	            <%= link_to 'Block Days on schedule', unavailability_new_path, class:"nav-link" %>
-	         </li>
-	         <li class="nav-item">
-	            <%= link_to 'Manage Companies', companies_path, class:"nav-link" if can? :manage, Company %>
-	         </li>
-	         <li class="nav-item">
-	            <%#= link_to 'Manage Users', users_path, class:"nav-link", if can? :manage, User %>
-	         </li>
-	         <li class="nav-item">
-	            <%= link_to 'Manage Locations', locations_path, class:"nav-link" if not current_user.super_admin? and can? :index, Location %>
-	         </li>
-	         <li class="nav-item">
-	            <%= link_to 'Manage External Locations', external_locations_path, class:"nav-link" if not current_user.super_admin? and can? :manage, ExternalLocation %>
-	         </li>
-	         <li class="nav-item">
-	            <%= link_to 'Manage Shifts', shifts_path, class:"nav-link" if not current_user.super_admin? and can? :manage, Shift %>
-	         </li>
-	         <li class="nav-item">
-	            <%= link_to 'Manage Trainings', trainings_path, class:"nav-link" if can? :manage, Training %>
-	         </li>
-	         <li class="nav-item">
-	            <%= link_to 'Manage Skills', skills_path, class:"nav-link" if can? :manage, Skill %>
-	         </li>
-	         <li class="nav-item">
-	            <%= link_to 'My Shifts', user_schedule_path(current_user), class:"nav-link active" if can? :my_shifts, Shift %>
-	         </li>
-	         <li class="nav-item">
-	            <%= link_to 'My Company', company_path(current_user.company), class:"nav-link" if (can? :show, current_user.company and not current_user.super_admin?) %>
-	         </li>
-	         
-	        
-	      </ul>
-	   </div>
-	</div>
+
+     
